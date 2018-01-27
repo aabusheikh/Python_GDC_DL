@@ -7,6 +7,9 @@ headers = {
 }
 data = open('request.json', 'rb')
 
-r = requests.post(url, data=data, headers=headers)
+request = requests.post(url, data=data, headers=headers)
 
-print(r)
+print(request)
+
+responseFile = open('response.json', 'w')
+responseFile.write(request.text)
