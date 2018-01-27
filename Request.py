@@ -1,4 +1,12 @@
 import requests
 import json
 
-print(requests.get("http://google.ca"))
+url = 'https://api.gdc.cancer.gov/files'
+headers = {
+    'Content-Type': 'application/json'
+}
+data = open('request.json', 'rb')
+
+r = requests.post(url, data=data, headers=headers)
+
+print(r)
