@@ -53,8 +53,8 @@ def genFileList(reqType, fromParam=0):
     }
 
     print("Writing list to %s ..." % fpath)
-    f = open(fpath, 'w')
-    f.write(r.text)
+    with open(fpath, 'w') as f:
+        f.write(r.text)
     print("List written to file.")
 
 
