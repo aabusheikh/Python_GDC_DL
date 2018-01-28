@@ -64,11 +64,7 @@ n = TOTAL_RNA // FILES_PER_LIST
 print("\nGenerating RNA files lists to '%s' ... " % FILE_LIST_DIR)
 
 for i in range(n):
-    print("\nGenerating file list %(i)s of %(n)s ..." % {
-        "i": i+1,
-        "n": n
-    })
-
+    print("\nGenerating file list %(i)s of %(n)s ..." % {"i": i+1, "n": n})
     try:
         genFileList("RNA", i*FILES_PER_LIST)
     except TypeError:
@@ -83,11 +79,7 @@ m = TOTAL_MIRNA // FILES_PER_LIST
 print("\nGenerating miRNA files lists to '%s' ... " % FILE_LIST_DIR)
 
 for i in range(m):
-    print("\nGenerating file list %(i)s of %(n)s ..." % {
-        "i": i+1,
-        "n": m
-    })
-
+    print("\nGenerating file list %(i)s of %(n)s ..." % {"i": i+1,"n": m})
     try:
         genFileList("miRNA", i * FILES_PER_LIST)
     except TypeError:
