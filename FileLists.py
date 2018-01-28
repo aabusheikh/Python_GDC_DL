@@ -81,7 +81,7 @@ print("\nGenerating miRNA files lists to '%s' ... " % FILE_LIST_DIR)
 for i in range(m):
     print("\nGenerating file list %(i)s of %(n)s ..." % {"i": i+1,"n": m})
     try:
-        genFileList("miRNA", i * FILES_PER_LIST)
+        genFileList("miRNA", i*FILES_PER_LIST)
     except TypeError:
         print("ERROR: genFileList - invalid parameter types")
 
