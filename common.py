@@ -6,7 +6,7 @@ Common code (global variables, functions) that will be used by multiple modules 
 for configuration or functionality
 """
 
-# GDC API files endpoint URL
+# GDC API base URL
 BASE_URL = 'https://api.gdc.cancer.gov/'
 
 # basic HTTP request header
