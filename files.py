@@ -9,22 +9,7 @@ the accompanying FileLists.py
 """
 
 # GDC API data endpoint URL (downloading files)
-URL = 'https://api.gdc.cancer.gov/data'
-
-# basic HTTP request header
-HEADERS = {
-    'Content-Type': 'application/json'
-}
-
-# absolute directory path to download files to (recommended if project is stored in space-sensitive
-# location such as a cloud drive directory (Dropbox, OneDrive, etc...)
-ABS_DL_DIR = os.path.abspath(os.path.join(os.path.expanduser('~'), 'Downloads', 'GDC_Downloads'))
-
-# relative directory path to download files to
-REL_DL_DIR = 'GDC_Downloads/'
-
-# chosen downloads directory
-DL_DIR = ABS_DL_DIR
+URL = cmn.BASE_URL+'data'
 
 
 def make_dirs():
@@ -33,7 +18,16 @@ def make_dirs():
 
     :return:
     """
-    cmn.make_dir(DL_DIR)
+    cmn.make_dir(cmn.DL_DIR)
+
+
+def read_list_file(file_path):
+    """
+    Read a file list JSON file
+
+    :param file_path: String path to the JSON file-list file
+    :return:
+    """
 
 
 def main():

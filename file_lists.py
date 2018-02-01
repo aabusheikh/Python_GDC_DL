@@ -8,21 +8,7 @@ later using the accompanying Files.py
 """
 
 # GDC API files endpoint URL
-URL = 'https://api.gdc.cancer.gov/files'
-
-# basic HTTP request header
-HEADERS = {
-    'Content-Type': 'application/json'
-}
-
-# total RNA, miRNA files to request
-TOTAL_RNA, TOTAL_MIRNA = 35000, 25000
-
-# max files per json list
-FILES_PER_LIST = 500
-
-# file list directory
-FILE_LIST_DIR = 'json/file-list/'
+URL = cmn.BASE_URL+'files'
 
 
 def make_dirs():
@@ -31,7 +17,7 @@ def make_dirs():
 
     :return:
     """
-    cmn.make_dir(FILE_LIST_DIR)
+    cmn.make_dir(cmn.FILE_LIST_DIR)
 
 
 def gen_file_list(req_type, from_param=0):
@@ -45,21 +31,21 @@ def gen_file_list(req_type, from_param=0):
     """
 
     params = json.load(open("json/file-list_req/%s-seq.json" % req_type, 'rb'))
-    params["size"] = str(FILES_PER_LIST)
+    params["size"] = str(cmn.FILES_PER_LIST)
     params["from"] = str(from_param)
 
     print("Requesting information for files %(start)s to %(end)s (index+1) ..." % {
         "start": from_param+1,
-        "end": from_param+FILES_PER_LIST
+        "end": from_param+cmn.FILES_PER_LIST
     })
 
-    r = requests.post(URL, data=json.dumps(params), headers=HEADERS)
+    r = requests.post(URL, data=json.dumps(params), headers=cmn.HEADERS)
     print(r)
 
     fpath = "%(dir)s%(req)s-seq_%(num)s.json" % {
-        "dir": FILE_LIST_DIR,
+        "dir": cmn.FILE_LIST_DIR,
         "req": req_type,
-        "num": from_param//FILES_PER_LIST
+        "num": from_param//cmn.FILES_PER_LIST
     }
 
     print("Writing list to %s ..." % fpath)
@@ -78,16 +64,16 @@ def gen_file_lists(req_type):
 
     n = 0
     if req_type == "RNA":
-        n = TOTAL_RNA // FILES_PER_LIST
+        n = cmn.TOTAL_RNA // cmn.FILES_PER_LIST
     elif req_type == "miRNA":
-        n = TOTAL_MIRNA // FILES_PER_LIST
+        n = cmn.TOTAL_MIRNA // cmn.FILES_PER_LIST
 
-    print("\nGenerating %s files lists to '%s' ... " % (req_type, FILE_LIST_DIR))
+    print("\nGenerating %s files lists to '%s' ... " % (req_type, cmn.FILE_LIST_DIR))
 
     for i in range(n):
         print("\nGenerating file list %(i)s of %(n)s ..." % {"i": i + 1, "n": n})
         try:
-            gen_file_list(req_type, i * FILES_PER_LIST)
+            gen_file_list(req_type, i * cmn.FILES_PER_LIST)
         except TypeError:
             print("ERROR: genFileList - invalid parameter types")
 
@@ -107,8 +93,8 @@ def main():
     n_mirna = gen_file_lists("miRNA")
 
     print()
-    print(n_rna, "RNA file lists generated, with information on", FILES_PER_LIST, "files in each list.\n")
-    print(n_mirna, "miRNA file lists generated, with information on", FILES_PER_LIST, "files in each list.\n")
+    print(n_rna, "RNA file lists generated, with information on", cmn.FILES_PER_LIST, "files in each list.\n")
+    print(n_mirna, "miRNA file lists generated, with information on", cmn.FILES_PER_LIST, "files in each list.\n")
 
 
 if __name__ == "__main__":
