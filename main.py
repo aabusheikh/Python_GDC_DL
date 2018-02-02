@@ -1,6 +1,5 @@
 import files
 import file_lists
-import common
 
 """
 main module, program will be run through this module
@@ -9,8 +8,7 @@ main module, program will be run through this module
 
 def main():
     """
-
-    :return:
+    Run program
     """
     file_lists.run()
     files.run()
