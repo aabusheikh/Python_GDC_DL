@@ -2,3 +2,7 @@
 Python script that will request RNA-seq and miRNA-seq files from the GDC server
 
 Requires 'requests': http://docs.python-requests.org/en/latest/user/install/
+
+to run:
+Windows > python main.py
+Linux > python3 main.py
