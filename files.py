@@ -12,28 +12,66 @@ the accompanying FileLists.py
 URL = cmn.BASE_URL+'data'
 
 
-def make_dirs():
+def _download_files(file_list):
     """
-    Create the directories needed by this script
+    Download files listed in one manifest list object
+
+    :param file_list:
+    :return:
+    """
+    for file in file_list["data"]["hits"]:
+        print("\nRequesting file '%s' ..." % file["file_name"])
+        r = requests.get("%s/%s" % (URL, file["file_id"]))
+        print(r)
+        if r.status_code == requests.codes.ok:
+            print("Request ok, downloading file ...")
+
+            file_dir = os.path.join(
+                cmn.DL_DIR,
+                file["cases"][0]["project"]["primary_site"],
+                file["cases"][0]["demographic"]["gender"],
+                file["cases"][0]["samples"][0]["sample_id"]
+            )
+            cmn.make_dir(file_dir)
+
+            file_path = os.path.join(file_dir, file["file_name"])
+            print("Writing file to '%s' ..." % file_path)
+
+            with open(file_path, 'wb') as file_out:
+                for chunk in r.iter_content(chunk_size=128):
+                    file_out.write(chunk)
+
+            print("File downloaded: '%s'." % file_path)
+
+        else:
+            print("Request failed, skipping file.")
+
+
+def download_files():
+    """
+    Read the manifest lists previously acquired and download
+    the files listed in them.
+
+    :return:
+    """
+    if not os.path.exists(cmn.FILE_LIST_DIR):
+        print("File-list files directory '%s' could not be found. Terminating ...\n" % cmn.FILE_LIST_DIR)
+        return
+
+    print("\n Scanning directory '%s' for manifest-list files ..." % cmn.FILE_LIST_DIR)
+    list_file_labels = os.listdir(cmn.FILE_LIST_DIR)
+    for lf in list_file_labels:
+        list_file = os.path.join(cmn.FILE_LIST_DIR, lf)
+        if os.path.isdir(list_file) or not os.path.exists(list_file):
+            continue
+        print("\nDownloading files listed in manifest-list file '%s' ..." % list_file)
+        _download_files(json.load(open(list_file)))
+
+
+def run():
+    """
 
     :return:
     """
     cmn.make_dir(cmn.DL_DIR)
-
-
-def read_list_file(file_path):
-    """
-    Read a file list JSON file
-
-    :param file_path: String path to the JSON file-list file
-    :return:
-    """
-
-
-def main():
-    # create required directories
-    make_dirs()
-
-
-if __name__ == "__main__":
-    main()
+    download_files()

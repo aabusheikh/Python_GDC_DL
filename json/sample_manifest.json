@@ -1,0 +1,27 @@
+{
+  "sample_manifest":
+  {
+    "file_name": "41d05c31-dfcb-42e3-b6b2-c77071132230.mirbase21.mirnas.quantification.txt",
+    "cases": [
+      {
+        "project":
+          {
+            "project_id": "TCGA-SKCM",
+            "primary_site": "Skin"
+          },
+        "demographic":
+          {
+            "gender": "female"
+          },
+        "samples": [
+          {
+            "sample_id": "5b0f64d4-6052-4465-8ad9-058556ec9aa3"
+          }
+        ]
+      }
+    ],
+    "file_id": "8df6b042-a108-4fc8-8419-084250b2418e",
+    "data_type": "miRNA Expression Quantification",
+    "id": "8df6b042-a108-4fc8-8419-084250b2418e"
+  }
+}
