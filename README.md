@@ -5,6 +5,9 @@ GDC search and retieval API documentation: https://docs.gdc.cancer.gov/API/Users
 
 This program requires the 'requests' library: http://docs.python-requests.org/en/latest/user/install/
 
+Running this program through the CMD/PowerShell/Terminal is recommended as IDEs may need extra configuration,
+and running through the CLI is very simple:
+
 to run:
 
 > python main.py
