@@ -24,7 +24,7 @@ Linux/MacOS
 
 > python3 main.py
 
-commandline arguments:
+#### commandline arguments:
 
 Only generate file manifest lists (download files later)
 
@@ -34,7 +34,7 @@ Only download files (use previously generated manifest lists)
 
 > python main.py -dlo
 
-If both arguments are provided '-man' will be used.
+    If both arguments are provided '-man' will be used.
 
 ___
 
