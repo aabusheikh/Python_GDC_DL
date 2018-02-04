@@ -20,55 +20,58 @@ def _download_files(file_list, file_number):
     Download files listed in one manifest list object
 
     :param file_list: Object a json object of the list from one manifest-list file
-    :return:
+    :param file_number: List contains 1 element that is the current number/index of the file being downloaded
     """
     # 'file' here is a file manifest, or information of a file
     for file in file_list["data"]["hits"]:
-        logging.info("\nRequesting file #%s ('%s')..." % (file_number, file["file_name"]))
+        logging.info("\nProcessing file #%s ..." % file_number[0])
 
-        # send a GET request for this single file using it's UUID
-        r = requests.get("%s/%s" % (URL, file["file_id"]))
-        logging.info(r)
-        if r.status_code == requests.codes.ok:
-            logging.info("Request ok, downloading file ...")
+        '''
+        this is where the organizational structure of the directories 
+        for the downloaded files is defined. Using sample_manifest.json
+        as a guideline. Directory path for each file is defined then created
+        if necessary
+        '''
+        file_dir_path = [cmn.DL_DIR]
 
-            '''
-            this is where the organizational structure of the directories 
-            for the downloaded files is defined. Using sample_manifest.json
-            as a guideline. Directory path for each file is defined then created
-            if necessary
-            '''
-            file_dir_path = [cmn.DL_DIR]
+        try:
+            file_dir_path.append(file["cases"][0]["project"]["primary_site"])
+        except KeyError:
+            logging.warning("File manifest did not provide attribute 'primary_site' for tissue sample.")
+            file_dir_path.append("unknown")
 
-            try:
-                file_dir_path.append(file["cases"][0]["project"]["primary_site"])
-            except KeyError:
-                logging.warning("File manifest did not provide attribute 'primary_site' for tissue sample.")
-                file_dir_path.append("unknown")
+        try:
+            file_dir_path.append(file["cases"][0]["demographic"]["gender"])
+        except KeyError:
+            logging.warning("File manifest did not provide attribute 'gender' for tissue sample.")
+            file_dir_path.append("unknown")
 
-            try:
-                file_dir_path.append(file["cases"][0]["demographic"]["gender"])
-            except KeyError:
-                logging.warning("File manifest did not provide attribute 'gender' for tissue sample.")
-                file_dir_path.append("unknown")
+        try:
+            file_dir_path.append(file["cases"][0]["samples"][0]["sample_id"])
+        except KeyError:
+            logging.warning("File manifest did not provide attribute 'sample_id' for tissue sample.")
+            file_dir_path.append("unknown")
 
-            try:
-                file_dir_path.append(file["cases"][0]["samples"][0]["sample_id"])
-            except KeyError:
-                logging.warning("File manifest did not provide attribute 'sample_id' for tissue sample.")
-                file_dir_path.append("unknown")
+        file_dir = os.path.join(*file_dir_path)
+        cmn.make_dir(file_dir)
 
-            file_dir = os.path.join(*file_dir_path)
-            cmn.make_dir(file_dir)
+        file_path = os.path.join(file_dir, file["file_name"])
 
-            file_path = os.path.join(file_dir, file["file_name"])
+        gzip_archive = False
+        if file_path.endswith('.gz') or file_path.endswith('.GZ'):
+            logging.info("File is a gzip archive.")
+            gzip_archive = True
 
-            gzip_archive = False
-            if file_path.endswith('.gz') or file_path.endswith('.GZ'):
-                logging.info("File is a gzip archive.")
-                gzip_archive = True
+        if not os.path.isfile(file_path) or (gzip_archive and not os.path.isfile('%s.txt' % file_path[:-3])):
 
-            if not os.path.isfile(file_path) or (gzip_archive and not os.path.isfile('%s.txt' % file_path[:-3])):
+            logging.info("Requesting file '%s'..." % file["file_name"])
+
+            # send a GET request for this single file using it's UUID
+            r = requests.get("%s/%s" % (URL, file["file_id"]))
+            logging.info(r)
+            if r.status_code == requests.codes.ok:
+                logging.info("Request ok, downloading file ...")
+
                 logging.info("Writing file to '%s' ..." % file_path)
 
                 # write HTTP response to the file as a byte stream
@@ -87,12 +90,12 @@ def _download_files(file_list, file_number):
                 logging.info("File downloaded.")
 
             else:
-                logging.info("File '%s' already exists." % file_path)
+                logging.error("Request failed, skipping file.")
 
         else:
-            logging.error("Request failed, skipping file.")
+            logging.info("File '%s' already exists." % file_path)
 
-        file_number += 1
+        file_number[0] += 1
 
 
 def download_files(file_number):
@@ -100,7 +103,7 @@ def download_files(file_number):
     Read the manifest lists previously acquired and download
     the files listed in them.
 
-    :return:
+    :param file_number: List contains 1 element that is the current number/index of the file being downloaded
     """
     if not os.path.exists(cmn.FILE_LIST_DIR):
         logging.info("Directory '%s' could not be found. Terminating ...\n" % cmn.FILE_LIST_DIR)
@@ -122,6 +125,9 @@ def run():
     Run the downloading script to download files listed in previously
     acquired manifest lists.
     """
-    file_number = 1 # number of file currently being requested/downloaded
+
+    # number of file currently being requested/downloaded
+    file_number = [1]
+
     cmn.make_dir(cmn.DL_DIR)
     download_files(file_number)
