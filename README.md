@@ -14,7 +14,7 @@ https://www.python.org/downloads/release
 
 Running this program through the command line is recommended as IDEs may need extra configuration.
 
-to run:
+#### Run program:
 
 Windows (Python 3 installed)
 
@@ -24,7 +24,7 @@ Linux/MacOS
 
 > python3 main.py
 
-#### commandline arguments:
+#### Commandline arguments:
 
 Only generate file manifest lists (download files later)
 
