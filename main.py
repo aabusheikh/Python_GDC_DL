@@ -26,7 +26,8 @@ def main():
         format=cmn.LOG_MSG_FORMAT,
         datefmt=cmn.LOG_TIME_FORMAT
     )
-    logging
+
+    start_time = time.time()
     logging.info("\nStarting program ...\n")
 
     if "-man" in sys.argv:
@@ -40,7 +41,9 @@ def main():
         file_lists.run()
         files.run()
 
-    logging.info("\nFinished running program.\n")
+    logging.info("\nFinished running program.")
+    run_time = time.time() - start_time
+    logging.info("Total run time: %s.\n" % time.strftime('%H:%M:%S', time.gmtime(run_time)))
 
 
 if __name__ == "__main__":
