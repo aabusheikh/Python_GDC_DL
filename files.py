@@ -93,7 +93,10 @@ def _download_files(file_list, file_number):
                 logging.error("Request failed, skipping file.\n")
 
         else:
-            logging.info("File '%s' already exists.\n" % file_path)
+            if gzip_archive:
+                logging.info("File '%s' already exists.\n" % '%s.txt' % file_path[:-3])
+            else:
+                logging.info("File '%s' already exists.\n" % file_path)
 
         file_number[0] += 1
 
