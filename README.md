@@ -5,6 +5,24 @@ GDC search and retieval API documentation: https://docs.gdc.cancer.gov/API/Users
 
 ___
 
+##### Python 3 is required, Python 3.6 or higher strongly recommended (not tested with older versions).
+
+https://www.python.org/downloads/release
+
+Running this program through the command line is recommended as IDEs may need extra configuration.
+
+to run:
+
+Windows (Python 3 installed)
+
+> python main.py
+
+Linux/MacOS
+
+> python3 main.py
+
+___
+
 ##### This program requires the 'requests' library: http://docs.python-requests.org/en/latest/user/install/
 
 ### To install the 'requests' library:
@@ -15,7 +33,7 @@ ___
 
 Check for pip updates
 
-> python -m  pip install --upgrade pip
+> python -m pip install --upgrade pip
 
 
 Install pipenv
@@ -28,25 +46,33 @@ Install requests
 > python -m pipenv install requests
 
 
-#### Linux/MacOS:
+#### Mac OS:
 
-Same commands as above, but use 'python3' instead, OR:
+Same commands as above, but use 'python3' instead, OR (not tested):
 
-> pip install --upgrade pip
 
-> pip install pipenv
+Install Python 3: http://docs.python-guide.org/en/latest/starting/install3/osx/ 
+
+Installing Python 3 using Homebrew as described in the guide will also install pip3.
+
+Then:
+
+> pip3 install pipenv
 
 > pipenv install requests
 
-___
 
-##### Python 3 is required, created and tested with Python 3.6.
+#### Linux:
 
-Running this program through the CMD/PowerShell/Terminal is recommended as IDEs may need extra configuration,
-and running through the CLI is very simple:
+Same commands as above (Windows), but use 'python3' instead, OR (not tested):
 
-to run:
 
-> python main.py
+Install pip for Python 3 (Debian Linux)
 
-Or python3 on Linux
+> sudo apt-get install python3-pip
+
+Then:
+
+> pip3 install pipenv
+
+> pipenv install requests
