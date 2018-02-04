@@ -1,4 +1,7 @@
-# CSI4900_Python_Request
+# Python_GDC_DL
+
+Created for CSI4900 - Honours Project
+
 Python script that will request RNA-seq and miRNA-seq files from the GDC server
 
 GDC search and retieval API documentation: https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/
