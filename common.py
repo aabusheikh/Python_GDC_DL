@@ -1,5 +1,6 @@
 import os
 import errno
+import logging
 
 """
 Common code (global variables, functions) that will be used by multiple modules of this program
@@ -43,6 +44,24 @@ REL_DL_DIR = 'GDC_Downloads'
 
 # chosen downloads directory
 DL_DIR = ABS_DL_DIR
+
+# log file directory
+LOG_DIR = 'logs'
+
+# logging level
+LOG_LEVEL = logging.DEBUG
+
+# logging message format
+LOG_MSG_FORMAT = '%(asctime)s - %(levelname)s:%(message)s'
+
+# logging time format
+LOG_TIME_FORMAT = '%H:%M:%S'
+
+# log file name template
+LOG_FILE_NAME = 'logfile_%s.log'
+
+# log file name date/time format
+LOG_FILE_NAME_TIME = '%m%d-%H%M%S'
 
 
 def make_dir(directory):

@@ -2,6 +2,7 @@ import requests
 import json
 import os
 import common as cmn
+import logging
 
 """
 A script to generate a list of GDC RNA-seq or miRNA-seq file manifests to be used 
@@ -27,26 +28,26 @@ def gen_file_list(req_type, from_param=0):
     params["size"] = str(cmn.FILES_PER_LIST)
     params["from"] = str(from_param)
 
-    print("Requesting manifests for files %(start)s to %(end)s (index+1) ..." % {
+    logging.info("Requesting manifests for files %(start)s to %(end)s (index+1) ..." % {
         "start": from_param+1,
         "end": from_param+cmn.FILES_PER_LIST
     })
 
     # send HTTP POST request and print HTTP status code returned (200, 404, etc...)
     r = requests.post(URL, data=json.dumps(params), headers=cmn.HEADERS)
-    print(r)
+    logging.info(r)
 
     if r.status_code == requests.codes.ok:
         # set path for manifest list JSON file
         file_path = os.path.join(cmn.FILE_LIST_DIR, cmn.FILE_LIST_NAME % (req_type, from_param//cmn.FILES_PER_LIST))
 
-        print("Writing manifest list to %s ..." % file_path)
+        logging.info("Writing manifest list to %s ..." % file_path)
         # write JSON manifests from HTTP response to the file
         with open(file_path, 'w') as f:
             f.write(r.text)
-        print("List written to file.")
+        logging.info("List written to file.")
     else:
-        print("Request failed, skipping file.")
+        logging.error("Request failed, skipping file.")
 
 
 def gen_file_lists(req_type):
@@ -68,7 +69,7 @@ def gen_file_lists(req_type):
     else:
         return
 
-    print("\nGenerating %s manifest lists to '%s' ... " % (req_type, cmn.FILE_LIST_DIR))
+    logging.info("\nGenerating %s manifest lists to '%s' ... " % (req_type, cmn.FILE_LIST_DIR))
 
     '''
     Each call to the helper method passes the file index to start at when sending
@@ -76,13 +77,13 @@ def gen_file_lists(req_type):
     file and then umber of files/manifests per list.
     '''
     for i in range(n):
-        print("\nGenerating manifest list %(i)s of %(n)s ..." % {"i": i + 1, "n": n})
+        logging.info("\nGenerating manifest list %(i)s of %(n)s ..." % {"i": i + 1, "n": n})
         try:
             gen_file_list(req_type, i * cmn.FILES_PER_LIST)
         except TypeError:
-            print("ERROR: genFileList - invalid parameter types")
+            logging.error("genFileList - invalid parameter types")
 
-    print("\n%s manifest lists generated" % req_type)
+    logging.info("\n%s manifest lists generated" % req_type)
 
     return n
 
@@ -100,6 +101,6 @@ def run():
     # generate miRNA file lists
     n_mirna = gen_file_lists("miRNA")
 
-    print("\nmanifest list files generated in '%s' :" % cmn.FILE_LIST_DIR)
-    print(n_rna, "RNA-seq manifest lists generated, with", cmn.FILES_PER_LIST, "manifests in each list.")
-    print(n_mirna, "miRNA-seq manifest lists generated, with ", cmn.FILES_PER_LIST, "manifests in each list.\n")
+    logging.info("\nmanifest list files generated in '%s' :" % cmn.FILE_LIST_DIR)
+    logging.info("%s RNA-seq manifest lists generated, with %s manifests in each list." % (n_rna, cmn.FILES_PER_LIST))
+    logging.info("%s miRNA-seq manifest lists generated, with %s manifests in each list.\n" % (n_mirna, cmn.FILES_PER_LIST))

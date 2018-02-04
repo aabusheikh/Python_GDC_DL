@@ -1,6 +1,7 @@
 # generated files
 json/file-list/
 GDC_Downloads/
+logs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
