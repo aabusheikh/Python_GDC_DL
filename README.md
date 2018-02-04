@@ -5,7 +5,7 @@ GDC search and retieval API documentation: https://docs.gdc.cancer.gov/API/Users
 
 ___
 
-This program requires the 'requests' library: http://docs.python-requests.org/en/latest/user/install/
+##### This program requires the 'requests' library: http://docs.python-requests.org/en/latest/user/install/
 
 ### To install the 'requests' library:
 
@@ -34,7 +34,7 @@ Same commands as above, but use 'python3' instead.
 
 ___
 
-Python 3 is required, created and tested with Python 3.6.
+##### Python 3 is required, created and tested with Python 3.6.
 
 Running this program through the CMD/PowerShell/Terminal is recommended as IDEs may need extra configuration,
 and running through the CLI is very simple:
