@@ -34,6 +34,8 @@ Same commands as above, but use 'python3' instead.
 
 ___
 
+Python 3 is required, created and tested with Python 3.6.
+
 Running this program through the CMD/PowerShell/Terminal is recommended as IDEs may need extra configuration,
 and running through the CLI is very simple:
 
