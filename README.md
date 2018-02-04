@@ -30,7 +30,13 @@ Install requests
 
 #### Linux/MacOS:
 
-Same commands as above, but use 'python3' instead.
+Same commands as above, but use 'python3' instead, OR:
+
+> pip install --upgrade pip
+
+> pip install pipenv
+
+> pipenv install requests
 
 ___
 
