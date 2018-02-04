@@ -117,7 +117,7 @@ def download_files(file_number):
             continue
         logging.info("\nDownloading files listed in manifest-list file '%s' ..." % list_file)
         _download_files(json.load(open(list_file)), file_number)
-    logging.info("\nAll files downloaded.")
+    logging.info("\n%s files downloaded." % file_number[0])
 
 
 def run():
