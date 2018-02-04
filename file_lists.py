@@ -45,9 +45,9 @@ def gen_file_list(req_type, from_param=0):
         # write JSON manifests from HTTP response to the file
         with open(file_path, 'w') as f:
             f.write(r.text)
-        logging.info("List written to file.")
+        logging.info("List written to file.\n")
     else:
-        logging.error("Request failed, skipping file.")
+        logging.error("Request failed, skipping file.\n")
 
 
 def gen_file_lists(req_type):
@@ -69,7 +69,7 @@ def gen_file_lists(req_type):
     else:
         return
 
-    logging.info("\nGenerating %s manifest lists to '%s' ... " % (req_type, cmn.FILE_LIST_DIR))
+    logging.info("Generating %s manifest lists to '%s' ... \n" % (req_type, cmn.FILE_LIST_DIR))
 
     '''
     Each call to the helper method passes the file index to start at when sending
@@ -77,13 +77,13 @@ def gen_file_lists(req_type):
     file and then umber of files/manifests per list.
     '''
     for i in range(n):
-        logging.info("\nGenerating manifest list %(i)s of %(n)s ..." % {"i": i + 1, "n": n})
+        logging.info("Generating manifest list %(i)s of %(n)s ..." % {"i": i + 1, "n": n})
         try:
             gen_file_list(req_type, i * cmn.FILES_PER_LIST)
         except TypeError:
-            logging.error("genFileList - invalid parameter types")
+            logging.error("genFileList - invalid parameter types\n")
 
-    logging.info("\n%s manifest lists generated" % req_type)
+    logging.info("%s manifest lists generated\n" % req_type)
 
     return n
 
@@ -101,6 +101,6 @@ def run():
     # generate miRNA file lists
     n_mirna = gen_file_lists("miRNA")
 
-    logging.info("\nmanifest list files generated in '%s' :" % cmn.FILE_LIST_DIR)
+    logging.info("manifest list files generated in '%s' :" % cmn.FILE_LIST_DIR)
     logging.info("%s RNA-seq manifest lists generated, with %s manifests in each list." % (n_rna, cmn.FILES_PER_LIST))
     logging.info("%s miRNA-seq manifest lists generated, with %s manifests in each list.\n" % (n_mirna, cmn.FILES_PER_LIST))

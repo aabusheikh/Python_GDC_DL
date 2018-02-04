@@ -24,7 +24,7 @@ def _download_files(file_list, file_number):
     """
     # 'file' here is a file manifest, or information of a file
     for file in file_list["data"]["hits"]:
-        logging.info("\nProcessing file #%s ..." % file_number[0])
+        logging.info("Processing file #%s ..." % file_number[0])
 
         '''
         this is where the organizational structure of the directories 
@@ -87,13 +87,13 @@ def _download_files(file_list, file_number):
                     os.remove(file_path)
                     logging.info("Gzip archive removed.")
 
-                logging.info("File downloaded.")
+                logging.info("File downloaded.\n")
 
             else:
-                logging.error("Request failed, skipping file.")
+                logging.error("Request failed, skipping file.\n")
 
         else:
-            logging.info("File '%s' already exists." % file_path)
+            logging.info("File '%s' already exists.\n" % file_path)
 
         file_number[0] += 1
 
@@ -109,15 +109,15 @@ def download_files(file_number):
         logging.info("Directory '%s' could not be found. Terminating ...\n" % cmn.FILE_LIST_DIR)
         return
 
-    logging.info("\n Scanning directory '%s' for manifest-list files ..." % cmn.FILE_LIST_DIR)
+    logging.info("Scanning directory '%s' for manifest-list files ...\n" % cmn.FILE_LIST_DIR)
     list_file_labels = os.listdir(cmn.FILE_LIST_DIR)
     for lf in list_file_labels:
         list_file = os.path.join(cmn.FILE_LIST_DIR, lf)
         if os.path.isdir(list_file) or not os.path.exists(list_file):
             continue
-        logging.info("\nDownloading files listed in manifest-list file '%s' ..." % list_file)
+        logging.info("Downloading files listed in manifest-list file '%s' ...\n" % list_file)
         _download_files(json.load(open(list_file)), file_number)
-    logging.info("\n%s files downloaded." % file_number[0])
+    logging.info("%s files downloaded.\n" % file_number[0])
 
 
 def run():

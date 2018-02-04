@@ -28,20 +28,20 @@ def main():
     )
 
     start_time = time.time()
-    logging.info("\nStarting program ...\n")
+    logging.info("Starting program ...")
 
     if "-man" in sys.argv:
-        logging.info("Detected 'manifest only' command line argument, program will only generate file manifests.")
+        logging.info("Detected 'manifest only' command line argument, program will only generate file manifests.\n")
         file_lists.run()
     elif "-dlo" in sys.argv:
-        logging.info("Detected 'download only' command line argument, program will use existing manifest lists.")
+        logging.info("Detected 'download only' command line argument, program will use existing manifest lists.\n")
         files.run()
     else:
-        logging.warning("No valid command line arguments, program will ignore arguments.")
+        logging.warning("No valid command line arguments, program will ignore arguments.\n")
         file_lists.run()
         files.run()
 
-    logging.info("\nFinished running program.")
+    logging.info("Finished running program.")
     run_time = time.time() - start_time
     logging.info("Total run time: %s.\n" % time.strftime('%H:%M:%S', time.gmtime(run_time)))
 
