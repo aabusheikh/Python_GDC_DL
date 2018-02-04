@@ -24,6 +24,18 @@ Linux/MacOS
 
 > python3 main.py
 
+commandline arguments:
+
+Only generate file manifest lists (download files later)
+
+> python main.py -man
+
+Only download files (use previously generated manifest lists)
+
+> python main.py -dlo
+
+If both arguments are provided '-man' will be used.
+
 ___
 
 ##### This program requires the 'requests' library: http://docs.python-requests.org/en/latest/user/install/
