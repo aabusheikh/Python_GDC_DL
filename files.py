@@ -62,7 +62,7 @@ def _download_files(file_list, file_number):
             logging.info("File is a gzip archive.")
             gzip_archive = True
 
-        if not os.path.isfile(file_path) or (gzip_archive and not os.path.isfile('%s.txt' % file_path[:-3])):
+        if (not gzip_archive and not os.path.isfile(file_path)) or (gzip_archive and not os.path.isfile('%s.txt' % file_path[:-3])):
 
             logging.info("Requesting file '%s'..." % file["file_name"])
 
