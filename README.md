@@ -48,7 +48,9 @@ Install requests
 
 #### Mac OS:
 
-Same commands as above, but use 'python3' instead, OR (not tested):
+Same commands as above, but use 'python3' instead, 
+
+OR (not tested):
 
 
     Install Python 3: http://docs.python-guide.org/en/latest/starting/install3/osx/ 
@@ -64,7 +66,9 @@ Same commands as above, but use 'python3' instead, OR (not tested):
 
 #### Linux:
 
-Same commands as above (Windows), but use 'python3' instead, OR (not tested):
+Same commands as above (Windows), but use 'python3' instead, 
+
+OR (not tested):
 
 
     Install pip for Python 3 (Debian Linux)
