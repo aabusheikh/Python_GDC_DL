@@ -51,15 +51,15 @@ Install requests
 Same commands as above, but use 'python3' instead, OR (not tested):
 
 
-Install Python 3: http://docs.python-guide.org/en/latest/starting/install3/osx/ 
+    Install Python 3: http://docs.python-guide.org/en/latest/starting/install3/osx/ 
 
-Installing Python 3 using Homebrew as described in the guide will also install pip3.
+    Installing Python 3 using Homebrew as described in the guide will also install pip3.
 
-Then:
+    Then:
 
-> pip3 install pipenv
+    > pip3 install pipenv
 
-> pipenv install requests
+    > pipenv install requests
 
 
 #### Linux:
@@ -67,12 +67,12 @@ Then:
 Same commands as above (Windows), but use 'python3' instead, OR (not tested):
 
 
-Install pip for Python 3 (Debian Linux)
+    Install pip for Python 3 (Debian Linux)
 
-> sudo apt-get install python3-pip
+    > sudo apt-get install python3-pip
 
-Then:
+    Then:
 
-> pip3 install pipenv
+    > pip3 install pipenv
 
-> pipenv install requests
+    > pipenv install requests
