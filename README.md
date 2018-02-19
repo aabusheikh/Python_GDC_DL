@@ -95,3 +95,7 @@ OR (not tested):
     > pip3 install pipenv
 
     > pipenv install requests
+
+___
+
+####Copyright (C) 2018 Ahmad A. A.
