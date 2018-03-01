@@ -6,7 +6,11 @@ Python script that will request RNA-seq and miRNA-seq files from the GDC server
 
 GDC search and retieval API documentation: https://docs.gdc.cancer.gov/API/Users_Guide/Search_and_Retrieval/
 
-Also created a script to combine/integrate data files: https://github.com/bbpgrs/Python_GDC_Integration
+My related scripts: 
+
+> https://github.com/bbpgrs/Python_GDC_Integration
+
+> https://github.com/bbpgrs/Python_GDC_Plot
 
 ___
 
